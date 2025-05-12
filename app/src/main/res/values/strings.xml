@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Kliniku</string>
+    <string name="lewati">Lewati</string>
+    <string name="lanjut">Lanjut</string>
+    <string name="mulai_sekarang">Mulai Sekarang</string>
+    <string name="onboard_title1">Nikmati layanan pemesanan klinik yang nyaman</string>
+    <string name="onboard_title2">Konsultasi dengan dokter kapan saja dan di mana saja</string>
+    <string name="onboard_title3">Ayo mulai dengan Kliniku</string>
+    <string name="onboard_desc3">Temukan kemudahan dalam mengakses layanan kesehatan</string>
+</resources>

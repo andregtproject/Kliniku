@@ -7,7 +7,7 @@ import com.kliniku.official.R
 
 class OnboardingViewModel : ViewModel() {
     // Menyimpan posisi current page(slide)
-    private val _currentPosition = MutableLiveData<Int>(0)
+    private val _currentPosition = MutableLiveData(0)
     val currentPosition: LiveData<Int> = _currentPosition
 
     // memperbarui posisi halaman

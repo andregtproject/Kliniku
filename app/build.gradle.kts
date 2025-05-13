@@ -26,6 +26,11 @@ android {
             )
         }
     }
+
+    buildFeatures {
+        viewBinding = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
@@ -51,8 +56,8 @@ dependencies {
     implementation(libs.android.gif.drawable)
 
     // ViewPager2
-    implementation("androidx.viewpager2:viewpager2:1.1.0")
+    implementation(libs.androidx.viewpager2)
 
     // DotsIndicator
-    implementation("com.tbuonomo:dotsindicator:5.1.0")
+    implementation(libs.dotsindicator)
 }

@@ -3,64 +3,48 @@ package com.kliniku.official.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
-import com.kliniku.official.MainActivity
 import com.kliniku.official.R
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+import com.kliniku.official.auth.register.RegisterActivity
+import com.kliniku.official.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {
 
-    private lateinit var viewPager: ViewPager2
-    private lateinit var buttonSkip: Button
-    private lateinit var buttonNext: Button
-    private lateinit var textTitle: TextView
-    private lateinit var textDescription: TextView
-    private lateinit var dotsIndicator: DotsIndicator
+    private lateinit var binding: ActivityOnboardingBinding
 
     // Menggunakan ViewModel untuk menyimpan state
     private val viewModel: OnboardingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
-        initViews()
+        binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Setup adapter dengan data dari ViewModel
         val adapter = OnboardingAdapter(viewModel.onboardingItems)
-        viewPager.adapter = adapter
+        binding.viewPager.adapter = adapter
 
         setupViewPager()
         setupButtons()
         observeViewModel()
     }
 
-    private fun initViews() {
-        viewPager = findViewById(R.id.viewPager)
-        buttonSkip = findViewById(R.id.buttonSkip)
-        buttonNext = findViewById(R.id.buttonNext)
-        textTitle = findViewById(R.id.textTitle)
-        textDescription = findViewById(R.id.textDescription)
-        dotsIndicator = findViewById(R.id.dotsIndicator)
-    }
-
     private fun setupViewPager() {
         // Konfigurasi ViewPager dan Dots Indicator
-        viewPager.isUserInputEnabled = true
-        viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        dotsIndicator.attachTo(viewPager)
+        binding.viewPager.isUserInputEnabled = true
+        binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        binding.dotsIndicator.attachTo(binding.viewPager)
 
         // Kembalikan ke posisi yang tersimpan di ViewModel setelah rotasi
         viewModel.currentPosition.value?.let { position ->
-            viewPager.setCurrentItem(position, false)
+            binding.viewPager.setCurrentItem(position, false)
             updateUI(position)
         }
 
         // Register callback untuk memperbarui UI dan ViewModel saat halaman berubah
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 viewModel.setCurrentPosition(position)
                 updateUI(position)
@@ -69,16 +53,16 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        buttonSkip.setOnClickListener {
-            navigateToMainActivity()
+        binding.buttonSkip.setOnClickListener {
+            navigateToAccountActivity()
         }
 
-        buttonNext.setOnClickListener {
+        binding.buttonNext.setOnClickListener {
             val currentPosition = viewModel.currentPosition.value ?: 0
             if (currentPosition < viewModel.onboardingItems.size - 1) {
-                viewPager.currentItem = currentPosition + 1
+                binding.viewPager.currentItem = currentPosition + 1
             } else {
-                navigateToMainActivity()
+                navigateToAccountActivity()
             }
         }
     }
@@ -93,28 +77,28 @@ class OnboardingActivity : AppCompatActivity() {
     // visibility button
     private fun updateUI(position: Int) {
         val item = viewModel.onboardingItems[position]
-        textTitle.setText(item.title)
+        binding.textTitle.setText(item.title)
 
         if (item.description != 0) {
-            textDescription.setText(item.description)
-            textDescription.visibility = View.VISIBLE
+            binding.textDescription.setText(item.description)
+            binding.textDescription.visibility = View.VISIBLE
         } else {
-            textDescription.visibility = View.GONE
+            binding.textDescription.visibility = View.GONE
         }
 
         if (position == viewModel.onboardingItems.size - 1) {
-            buttonSkip.visibility = View.GONE
-            buttonNext.setText(R.string.mulai_sekarang)
+            binding.buttonSkip.visibility = View.GONE
+            binding.buttonNext.setText(R.string.mulai_sekarang)
         } else {
-            buttonSkip.visibility = View.VISIBLE
-            buttonNext.setText(R.string.lanjut)
+            binding.buttonSkip.visibility = View.VISIBLE
+            binding.buttonNext.setText(R.string.lanjut)
         }
     }
 
-    private fun navigateToMainActivity() {
+    private fun navigateToAccountActivity() {
         val sharedPreferences = getSharedPreferences("kliniku_prefs", MODE_PRIVATE)
         sharedPreferences.edit().putBoolean("onboarding_completed", true).apply()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this, RegisterActivity::class.java))
         finish()
     }
 }

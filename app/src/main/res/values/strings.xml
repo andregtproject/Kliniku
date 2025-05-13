@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Kliniku</string>
+
+
     <string name="lewati">Lewati</string>
     <string name="lanjut">Lanjut</string>
     <string name="mulai_sekarang">Mulai Sekarang</string>
@@ -7,4 +9,29 @@
     <string name="onboard_title2">Konsultasi dengan dokter kapan saja dan di mana saja</string>
     <string name="onboard_title3">Ayo mulai dengan Kliniku</string>
     <string name="onboard_desc3">Temukan kemudahan dalam mengakses layanan kesehatan</string>
+
+    <!-- Register Page -->
+    <string name="account_title">Selamat datang di</string>
+    <string name="register_desc">Daftarkan akun Anda sekarang!</string>
+    <string name="email">Email</string>
+    <string name="email_hint">cth: muhammad_asep@gmail.com</string>
+    <string name="phone_number_tab">No. Hp</string>
+    <string name="full_name">Nama Lengkap</string>
+    <string name="full_name_hint">cth: Muhammad Asep</string>
+    <string name="birth_date">Tanggal Lahir</string>
+    <string name="birth_date_hint">cth: 01–01–1976</string>
+    <string name="password">Kata Sandi</string>
+    <string name="password_hint">cth: asep1976</string>
+    <string name="confirm_password">Konfirmasi Kata Sandi</string>
+    <string name="register">Daftar</string>
+    <string name="or">atau</string>
+    <string name="register_with_google">Daftar dengan Google</string>
+    <string name="already_have_account">Sudah punya akun?</string>
+    <string name="login">Masuk</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="phone_number_hint">cth: +62 81234567890</string>
+    <string name="phone_number">Nomor Telepon</string>
+
+
 </resources>

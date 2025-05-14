@@ -6,4 +6,5 @@
     <color name="colorSecondary">#4DAC49</color>
     <color name="colorAccent">#F3AA43</color>
     <color name="colorSurface">#F9F8D4</color>
+    <color name="colorOverlay">#E62E416B</color>
 </resources>

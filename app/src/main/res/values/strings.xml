@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Kliniku</string>
 
-
+    <!-- Onboarding -->
     <string name="lewati">Lewati</string>
     <string name="lanjut">Lanjut</string>
     <string name="mulai_sekarang">Mulai Sekarang</string>
@@ -10,6 +10,7 @@
     <string name="onboard_title3">Ayo mulai dengan Kliniku</string>
     <string name="onboard_desc3">Temukan kemudahan dalam mengakses layanan kesehatan</string>
 
+    <!-- Auth Login/Register -->
     <string name="account_title">Selamat datang di</string>
     <string name="register_desc">Daftarkan akun Anda sekarang!</string>
     <string name="login_desc">Masukkan akun Anda sekarang!</string>
@@ -31,7 +32,7 @@
     <string name="login">Masuk</string>
     <string name="phone_number_hint">Masukkan nomor telepon Anda</string>
     <string name="phone_number">Nomor Telepon</string>
-    <string name="forgot_password">Lupa kata sandi?</string>
+    <string name="forget_password">Lupa kata sandi?</string>
     <string name="dont_have_account">Belum punya akun?</string>
     <string name="login_with_google">Masuk dengan Google</string>
     <string name="failed_form">Silahkan perbaiki kesalahan pada form</string>
@@ -52,7 +53,7 @@
 
     <!-- Birthdate validation -->
     <string name="error_birthdate_empty">Tanggal lahir tidak boleh kosong</string>
-    <string name="error_birthdate_too_young">Usia minimal 13 tahun</string>
+    <string name="error_birthdate_too_young">Usia minimal 17 tahun</string>
     <string name="error_birthdate_invalid">Usia tidak valid</string>
 
     <!-- Password validation -->
@@ -66,4 +67,13 @@
     <!-- Confirm password -->
     <string name="error_confirm_password_empty">Konfirmasi password tidak boleh kosong</string>
     <string name="error_password_mismatch">Password tidak cocok</string>
+
+    <!-- Forget password -->
+    <string name="title_otp">Masukkan Kode OTP</string>
+    <string name="desc_otp_prompt">Kami mengirim kode OTP ke</string>
+    <string name="forget_password_title">Lupa Kata Sandi</string>
+    <string name="loading_text">Sedang diproses, mohon tunggu…</string>
+    <string name="prompt_otp">Anda tidak menerima kode?</string>
+    <string name="resend">Ulangi</string>
+    <string name="confirm">Konfirmasi</string>
 </resources>

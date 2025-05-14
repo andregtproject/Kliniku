@@ -152,6 +152,7 @@
             android:text="@string/phone_number"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
+            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvErrorBirthdate" />
 
@@ -169,6 +170,7 @@
             android:textColor="@color/colorPrimary"
             android:textColorHint="@android:color/darker_gray"
             android:textSize="14sp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvPhoneNumber" />
@@ -208,6 +210,9 @@
                 android:id="@+id/etPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/tglPassword"
+                android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="@string/password_hint"
                 android:inputType="textPassword"
@@ -215,10 +220,7 @@
                 android:paddingVertical="8dp"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@android:color/darker_gray"
-                android:textSize="14sp"
-                android:background="@android:color/transparent"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/tglPassword" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/tglPassword"
@@ -249,7 +251,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@string/forgot_password"
+            android:text="@string/forget_password"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             android:visibility="gone"
@@ -281,6 +283,9 @@
                 android:id="@+id/etConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@+id/tglConfirmPassword"
+                android:background="@android:color/transparent"
                 android:ems="10"
                 android:hint="@string/confirm_password_hint"
                 android:inputType="textPassword"
@@ -288,10 +293,7 @@
                 android:paddingVertical="8dp"
                 android:textColor="@color/colorPrimary"
                 android:textColorHint="@android:color/darker_gray"
-                android:textSize="14sp"
-                android:background="@android:color/transparent"
-                android:layout_alignParentStart="true"
-                android:layout_toStartOf="@+id/tglConfirmPassword" />
+                android:textSize="14sp" />
 
             <ImageView
                 android:id="@+id/tglConfirmPassword"
@@ -319,18 +321,18 @@
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tvErrorConfirmPassword"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvErrorConfirmPassword" />
 
         <Space
             android:id="@+id/spaceForgotPassword"
             android:layout_width="0dp"
             android:layout_height="32dp"
             android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/tvForgotPassword"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvForgotPassword" />
 
         <Button
             android:id="@+id/btnAction"
@@ -343,9 +345,9 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/spaceBeforeButton"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/spaceBeforeButton" />
 
         <LinearLayout
             android:id="@+id/separatorLayout"
@@ -411,7 +413,7 @@
         </RelativeLayout>
 
         <LinearLayout
-            android:id="@+id/authPromptLayout"
+            android:id="@+id/authPromptContainer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -437,5 +439,6 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
         </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

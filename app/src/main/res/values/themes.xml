@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
     <style name="Base.Theme.Kliniku" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your light theme here. -->
@@ -6,6 +6,7 @@
 
         <!-- Background color -->
         <item name="android:windowBackground">@color/white</item>
+        <item name="background">@color/white</item>
 
         <!-- Status bar color -->
         <item name="android:statusBarColor">@color/white</item>

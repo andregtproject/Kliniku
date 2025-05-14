@@ -9,13 +9,13 @@
         android:id="@+id/imageOnboarding"
         android:layout_width="300dp"
         android:layout_height="300dp"
-        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:src="@drawable/onboard1"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="ContentDescription"
+        tools:src="@drawable/onboard1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,9 +2,11 @@ package com.kliniku.official.auth
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kliniku.official.R
+import com.kliniku.official.auth.util.LoadingUtils
 import com.kliniku.official.databinding.ActivityAuthBinding
 
 class AuthActivity : AppCompatActivity() {
@@ -13,11 +15,14 @@ class AuthActivity : AppCompatActivity() {
     private lateinit var adapter: AuthPagerAdapter
     private var currentTabPosition = 0
     private var isLoginMode = false
+    private lateinit var loadingOverlay: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        loadingOverlay = findViewById(R.id.loadingLayout)
 
         // Extract mode from intent
         isLoginMode = intent.getBooleanExtra(KEY_LOGIN_MODE, false)
@@ -98,6 +103,14 @@ class AuthActivity : AppCompatActivity() {
         isLoginMode = false
         setupUI()
         setupViewPager()
+    }
+
+    fun showLoading() {
+        LoadingUtils.showLoading(window, loadingOverlay)
+    }
+
+    fun hideLoading() {
+        LoadingUtils.hideLoading(window, loadingOverlay)
     }
 
     companion object {

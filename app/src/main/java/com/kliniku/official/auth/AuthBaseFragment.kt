@@ -1,6 +1,7 @@
 package com.kliniku.official.auth
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -123,6 +124,14 @@ class AuthBaseFragment : Fragment() {
                 }
             }
         }
+    }
+
+    private fun showLoading() {
+        (activity as? AuthActivity)?.showLoading()
+    }
+
+    private fun hideLoading() {
+        (activity as? AuthActivity)?.hideLoading()
     }
 
     private fun setupRegistrationViews(show: Boolean) {
@@ -286,7 +295,8 @@ class AuthBaseFragment : Fragment() {
     private fun validateBirthDate(): Boolean {
         if (binding.birthdateContainer.visibility != View.VISIBLE) return true
         val birthdate = binding.tvBirthdateValue.text.toString()
-        val validationResult = ValidatorUtil.validateBirthdate(requireContext(), birthdate, selectedDate)
+        val validationResult =
+            ValidatorUtil.validateBirthdate(requireContext(), birthdate, selectedDate)
         return updateFieldStatus(
             container = binding.birthdateContainer,
             errorTextView = binding.tvErrorBirthdate,
@@ -308,7 +318,8 @@ class AuthBaseFragment : Fragment() {
         if (binding.confirmPasswordContainer.visibility != View.VISIBLE) return true
         val password = binding.etPassword.text.toString()
         val confirmPassword = binding.etConfirmPassword.text.toString()
-        val validationResult = ValidatorUtil.validateConfirmPassword(requireContext(), password, confirmPassword)
+        val validationResult =
+            ValidatorUtil.validateConfirmPassword(requireContext(), password, confirmPassword)
         if (!validationResult.isValid) {
             binding.spaceBeforeButton.visibility = View.VISIBLE
         }
@@ -391,28 +402,30 @@ class AuthBaseFragment : Fragment() {
             }
 
             btnGoogleContainer.setOnClickListener {
-                Toast.makeText(
-                    requireContext(),
-                    "Google authentication belum",
-                    Toast.LENGTH_SHORT
-                ).show()
+                showLoading()
+                binding.root.postDelayed({
+                    hideLoading()
+                    Toast.makeText(
+                        requireContext(),
+                        "Google authentication belum",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }, 1500)
             }
 
             tvActionText.setOnClickListener {
                 when (authMode) {
                     AuthMode.REGISTER_EMAIL, AuthMode.REGISTER_PHONE ->
                         (activity as? AuthActivity)?.switchToLogin()
+
                     AuthMode.LOGIN_EMAIL, AuthMode.LOGIN_PHONE ->
                         (activity as? AuthActivity)?.switchToRegister()
                 }
             }
 
             tvForgotPassword.setOnClickListener {
-                Toast.makeText(
-                    requireContext(),
-                    "Fitur lupa kata sandi belum",
-                    Toast.LENGTH_SHORT
-                ).show()
+                val intent = Intent(requireContext(), ForgetPasswordActivity::class.java)
+                startActivity(intent)
             }
         }
     }
@@ -443,53 +456,79 @@ class AuthBaseFragment : Fragment() {
     private fun registerWithEmail() {
         val fullName = binding.etFullname.text.toString()
         val email = binding.etEmail.text.toString()
-        val birthdate = if (binding.tvBirthdateValue.text.isNullOrEmpty()) "" else dateFormat.format(calendar.time)
+        val birthdate =
+            if (binding.tvBirthdateValue.text.isNullOrEmpty()) "" else dateFormat.format(calendar.time)
         val password = binding.etPassword.text.toString()
 
-        Toast.makeText(
-            requireContext(),
-            "Registrasi berhasil untuk email: $email",
-            Toast.LENGTH_SHORT
-        ).show()
-        // Call ViewModel
+        showLoading()
+
+        // Simulate network call
+        binding.root.postDelayed({
+            hideLoading()
+            Toast.makeText(
+                requireContext(),
+                "Registrasi berhasil untuk email: $email",
+                Toast.LENGTH_SHORT
+            ).show()
+            // Call ViewModel
+        }, 1500)
     }
 
     private fun registerWithPhone() {
         val fullName = binding.etFullname.text.toString()
         val phoneNumber = binding.etPhoneNumber.text.toString()
-        val birthdate = if (binding.tvBirthdateValue.text.isNullOrEmpty()) "" else dateFormat.format(calendar.time)
+        val birthdate =
+            if (binding.tvBirthdateValue.text.isNullOrEmpty()) "" else dateFormat.format(calendar.time)
         val password = binding.etPassword.text.toString()
 
-        Toast.makeText(
-            requireContext(),
-            "Registrasi berhasil untuk nomor: $phoneNumber",
-            Toast.LENGTH_SHORT
-        ).show()
-        // Call ViewModel
+        showLoading()
+
+        // Simulate network call
+        binding.root.postDelayed({
+            hideLoading()
+            Toast.makeText(
+                requireContext(),
+                "Registrasi berhasil untuk nomor: $phoneNumber",
+                Toast.LENGTH_SHORT
+            ).show()
+            // Call ViewModel
+        }, 1500)
     }
 
     private fun loginWithEmail() {
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 
-        Toast.makeText(
-            requireContext(),
-            "Login berhasil untuk email: $email",
-            Toast.LENGTH_SHORT
-        ).show()
-        // Call ViewModel
+        showLoading()
+
+        // Simulate network call
+        binding.root.postDelayed({
+            hideLoading()
+            Toast.makeText(
+                requireContext(),
+                "Login berhasil untuk email: $email",
+                Toast.LENGTH_SHORT
+            ).show()
+            // Call ViewModel
+        }, 1500)
     }
 
     private fun loginWithPhone() {
         val phoneNumber = binding.etPhoneNumber.text.toString()
         val password = binding.etPassword.text.toString()
 
-        Toast.makeText(
-            requireContext(),
-            "Login berhasil untuk nomor: $phoneNumber",
-            Toast.LENGTH_SHORT
-        ).show()
-        // Call ViewModel
+        showLoading()
+
+        // Simulate network call
+        binding.root.postDelayed({
+            hideLoading()
+            Toast.makeText(
+                requireContext(),
+                "Login berhasil untuk nomor: $phoneNumber",
+                Toast.LENGTH_SHORT
+            ).show()
+            // Call ViewModel
+        }, 1500)
     }
 
     override fun onDestroyView() {

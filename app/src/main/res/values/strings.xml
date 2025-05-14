@@ -10,28 +10,60 @@
     <string name="onboard_title3">Ayo mulai dengan Kliniku</string>
     <string name="onboard_desc3">Temukan kemudahan dalam mengakses layanan kesehatan</string>
 
-    <!-- Register Page -->
     <string name="account_title">Selamat datang di</string>
     <string name="register_desc">Daftarkan akun Anda sekarang!</string>
+    <string name="login_desc">Masukkan akun Anda sekarang!</string>
     <string name="email">Email</string>
-    <string name="email_hint">cth: muhammad_asep@gmail.com</string>
+    <string name="email_hint">Masukkan email aktif Anda</string>
     <string name="phone_number_tab">No. Hp</string>
     <string name="full_name">Nama Lengkap</string>
-    <string name="full_name_hint">cth: Muhammad Asep</string>
+    <string name="full_name_hint">Masukkan nama lengkap Anda</string>
     <string name="birth_date">Tanggal Lahir</string>
-    <string name="birth_date_hint">cth: 01–01–1976</string>
+    <string name="birth_date_hint">Pilih tanggal lahir Anda</string>
     <string name="password">Kata Sandi</string>
-    <string name="password_hint">cth: asep1976</string>
+    <string name="password_hint">Masukkan kata sandi Anda</string>
     <string name="confirm_password">Konfirmasi Kata Sandi</string>
+    <string name="confirm_password_hint">Masukkan kembali kata sandi Anda</string>
     <string name="register">Daftar</string>
     <string name="or">atau</string>
     <string name="register_with_google">Daftar dengan Google</string>
     <string name="already_have_account">Sudah punya akun?</string>
     <string name="login">Masuk</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="phone_number_hint">cth: +62 81234567890</string>
+    <string name="phone_number_hint">Masukkan nomor telepon Anda</string>
     <string name="phone_number">Nomor Telepon</string>
+    <string name="forgot_password">Lupa kata sandi?</string>
+    <string name="dont_have_account">Belum punya akun?</string>
+    <string name="login_with_google">Masuk dengan Google</string>
+    <string name="failed_form">Silahkan perbaiki kesalahan pada form</string>
 
+    <!-- Name validation -->
+    <string name="error_name_empty">Nama tidak boleh kosong</string>
+    <string name="error_name_too_short">Nama minimal 3 karakter</string>
+    <string name="error_name_invalid_chars">Nama hanya boleh berisi huruf</string>
 
+    <!-- Email validation -->
+    <string name="error_email_empty">Email tidak boleh kosong</string>
+    <string name="error_email_invalid_format">Format email tidak valid</string>
+
+    <!-- Phone validation -->
+    <string name="error_phone_empty">Nomor telepon tidak boleh kosong</string>
+    <string name="error_phone_length">Nomor telepon harus 10–13 digit angka</string>
+    <string name="error_phone_prefix">Nomor telepon harus dimulai dengan 08</string>
+
+    <!-- Birthdate validation -->
+    <string name="error_birthdate_empty">Tanggal lahir tidak boleh kosong</string>
+    <string name="error_birthdate_too_young">Usia minimal 13 tahun</string>
+    <string name="error_birthdate_invalid">Usia tidak valid</string>
+
+    <!-- Password validation -->
+    <string name="error_password_empty">Password tidak boleh kosong</string>
+    <string name="error_password_too_short">Password minimal 8 karakter</string>
+    <string name="error_password_uppercase">Password harus mengandung huruf besar</string>
+    <string name="error_password_lowercase">Password harus mengandung huruf kecil</string>
+    <string name="error_password_number">Password harus mengandung angka</string>
+    <string name="error_password_special_char">Password harus mengandung karakter khusus</string>
+
+    <!-- Confirm password -->
+    <string name="error_confirm_password_empty">Konfirmasi password tidak boleh kosong</string>
+    <string name="error_password_mismatch">Password tidak cocok</string>
 </resources>

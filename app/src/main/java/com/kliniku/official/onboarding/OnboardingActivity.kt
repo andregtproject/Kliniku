@@ -7,7 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.kliniku.official.R
-import com.kliniku.official.auth.register.RegisterActivity
+import com.kliniku.official.auth.AuthActivity
 import com.kliniku.official.databinding.ActivityOnboardingBinding
 
 class OnboardingActivity : AppCompatActivity() {
@@ -98,7 +98,7 @@ class OnboardingActivity : AppCompatActivity() {
     private fun navigateToAccountActivity() {
         val sharedPreferences = getSharedPreferences("kliniku_prefs", MODE_PRIVATE)
         sharedPreferences.edit().putBoolean("onboarding_completed", true).apply()
-        startActivity(Intent(this, RegisterActivity::class.java))
+        startActivity(Intent(this, AuthActivity::class.java))
         finish()
     }
 }

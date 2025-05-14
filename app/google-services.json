@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "772048649885",
+    "project_id": "kliniku-8f2d3",
+    "storage_bucket": "kliniku-8f2d3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:772048649885:android:484f9f238b9586eaaa1e74",
+        "android_client_info": {
+          "package_name": "com.kliniku.official"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADQxnKFx4UmFcO9bfrhK7otqI_rcKtDeY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

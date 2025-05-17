@@ -65,4 +65,6 @@ dependencies {
 
     // DotsIndicator
     implementation(libs.dotsindicator)
+
+    implementation (libs.stepview)
 }

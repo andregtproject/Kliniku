@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="24dp"
-            app:layout_constraintBottom_toTopOf="@id/buttonContainer"
+            app:layout_constraintBottom_toTopOf="@id/layoutButtons"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/dotsIndicator">
@@ -75,43 +75,14 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/buttonContainer"
+        <include
+            android:id="@+id/layoutButtons"
+            layout="@layout/ns_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent" />
 
-            <Button
-                android:id="@+id/buttonSkip"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_inactive"
-                android:padding="16dp"
-                android:text="@string/lewati"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp"
-                tools:ignore="ButtonStyle" />
-
-            <Button
-                android:id="@+id/buttonNext"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_normal"
-                android:padding="16dp"
-                android:text="@string/lanjut"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                tools:ignore="ButtonStyle" />
-        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -9,17 +9,21 @@ import androidx.viewpager2.widget.ViewPager2
 import com.kliniku.official.R
 import com.kliniku.official.auth.AuthActivity
 import com.kliniku.official.databinding.ActivityOnboardingBinding
+import com.kliniku.official.databinding.NsButtonBinding
 
 class OnboardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnboardingBinding
+    private lateinit var buttonBinding: NsButtonBinding
 
-    // Menggunakan ViewModel untuk menyimpan state
     private val viewModel: OnboardingViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
+        binding.layoutButtons.root.let {
+            buttonBinding = NsButtonBinding.bind(it)
+        }
         setContentView(binding.root)
 
         // Setup adapter dengan data dari ViewModel
@@ -53,11 +57,11 @@ class OnboardingActivity : AppCompatActivity() {
     }
 
     private fun setupButtons() {
-        binding.buttonSkip.setOnClickListener {
+        buttonBinding.buttonSkip.setOnClickListener {
             navigateToAccountActivity()
         }
 
-        binding.buttonNext.setOnClickListener {
+        buttonBinding.buttonNext.setOnClickListener {
             val currentPosition = viewModel.currentPosition.value ?: 0
             if (currentPosition < viewModel.onboardingItems.size - 1) {
                 binding.viewPager.currentItem = currentPosition + 1
@@ -87,11 +91,11 @@ class OnboardingActivity : AppCompatActivity() {
         }
 
         if (position == viewModel.onboardingItems.size - 1) {
-            binding.buttonSkip.visibility = View.GONE
-            binding.buttonNext.setText(R.string.mulai_sekarang)
+            buttonBinding.buttonSkip.visibility = View.GONE
+            buttonBinding.buttonNext.setText(R.string.mulai_sekarang)
         } else {
-            binding.buttonSkip.visibility = View.VISIBLE
-            binding.buttonNext.setText(R.string.lanjut)
+            buttonBinding.buttonSkip.visibility = View.VISIBLE
+            buttonBinding.buttonNext.setText(R.string.lanjut)
         }
     }
 

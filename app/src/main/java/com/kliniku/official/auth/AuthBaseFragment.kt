@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.kliniku.official.R
+import com.kliniku.official.auth.profile_step.CompleteProfileActivity
 import com.kliniku.official.auth.util.ValidatorUtil
 import com.kliniku.official.databinding.FragmentAuthBaseBinding
 import java.text.SimpleDateFormat
@@ -470,9 +471,18 @@ class AuthBaseFragment : Fragment() {
                 "Registrasi berhasil untuk email: $email",
                 Toast.LENGTH_SHORT
             ).show()
-            // Call ViewModel
+
+            // Navigate to CompleteProfileActivity
+            val intent = Intent(requireContext(), CompleteProfileActivity::class.java).apply {
+                putExtra("fullName", fullName)
+                putExtra("email", email)
+                putExtra("birthdate", birthdate)
+            }
+            startActivity(intent)
+            activity?.finish()
         }, 1500)
     }
+
 
     private fun registerWithPhone() {
         val fullName = binding.etFullname.text.toString()
@@ -491,7 +501,15 @@ class AuthBaseFragment : Fragment() {
                 "Registrasi berhasil untuk nomor: $phoneNumber",
                 Toast.LENGTH_SHORT
             ).show()
-            // Call ViewModel
+
+            // Navigate to CompleteProfileActivity
+            val intent = Intent(requireContext(), CompleteProfileActivity::class.java).apply {
+                putExtra("fullName", fullName)
+                putExtra("phoneNumber", phoneNumber)
+                putExtra("birthdate", birthdate)
+            }
+            startActivity(intent)
+            activity?.finish()
         }, 1500)
     }
 

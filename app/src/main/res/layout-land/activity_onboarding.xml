@@ -56,7 +56,7 @@
                 android:gravity="center"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/league_spartan_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/dotsIndicator" />
@@ -69,6 +69,7 @@
                 android:gravity="center"
                 android:textColor="@android:color/darker_gray"
                 android:textSize="14sp"
+                android:fontFamily="@font/inter_regular"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/textTitle" />

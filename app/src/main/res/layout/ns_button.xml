@@ -20,7 +20,8 @@
         android:text="@string/lewati"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimary"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:fontFamily="@font/league_spartan_regular"
         tools:ignore="ButtonStyle" />
 
     <Button
@@ -35,7 +36,8 @@
         android:text="@string/lanjut"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="16sp"
+        android:textSize="18sp"
+        android:fontFamily="@font/league_spartan_regular"
         tools:ignore="ButtonStyle" />
 
 </LinearLayout>

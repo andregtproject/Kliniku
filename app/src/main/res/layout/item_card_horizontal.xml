@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/role_admin_title"
                 android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
+                android:fontFamily="@font/inter_semibold"
                 android:textSize="16sp" />
 
             <TextView
@@ -50,7 +50,8 @@
                 android:paddingTop="8dp"
                 android:text="@string/role_admin_desc"
                 android:textColor="@color/colorSecondary"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_regular"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

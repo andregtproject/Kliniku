@@ -98,5 +98,8 @@
     <string name="please_select_role">Tolong masukkan peran anda terlebih dahulu!</string>
     <string name="complete_all_steps">Semua langkah pendaftaran telah dilakukan!</string>
     <string name="registration_successful">Registrasi Berhasil!</string>
+    <string name="exit_confirm_complete_profile">Apakah Anda ingin kembali? Data yang telah diisi akan terhapus.</string>
+    <string name="yes">Iya</string>
+    <string name="cancel">Batal</string>
 
 </resources>

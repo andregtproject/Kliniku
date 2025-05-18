@@ -1,5 +1,6 @@
 package com.kliniku.official.auth
 
+import android.app.Activity
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
@@ -13,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -454,6 +456,15 @@ class AuthBaseFragment : Fragment() {
         binding.tvBirthdateValue.text = dateFormat.format(calendar.time)
     }
 
+    private val completeProfileLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Handle the result from CompleteProfileActivity
+            activity?.finish()
+        }
+    }
+
     private fun registerWithEmail() {
         val fullName = binding.etFullname.text.toString()
         val email = binding.etEmail.text.toString()
@@ -478,11 +489,9 @@ class AuthBaseFragment : Fragment() {
                 putExtra("email", email)
                 putExtra("birthdate", birthdate)
             }
-            startActivity(intent)
-            activity?.finish()
+            completeProfileLauncher.launch(intent)
         }, 1500)
     }
-
 
     private fun registerWithPhone() {
         val fullName = binding.etFullname.text.toString()
@@ -508,8 +517,7 @@ class AuthBaseFragment : Fragment() {
                 putExtra("phoneNumber", phoneNumber)
                 putExtra("birthdate", birthdate)
             }
-            startActivity(intent)
-            activity?.finish()
+            completeProfileLauncher.launch(intent)
         }, 1500)
     }
 

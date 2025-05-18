@@ -61,56 +61,44 @@ class RoleFragment : Fragment() {
     }
 
     private fun setupRoleSelection() {
-        binding.itemAdmin.root.setOnClickListener {
-            selectRole("admin", binding.itemAdmin.root)
+        adminBinding.root.setOnClickListener {
+            selectRole("admin", adminBinding)
         }
-
-        binding.itemPasien.root.setOnClickListener {
-            selectRole("pasien", binding.itemPasien.root)
+        patientBinding.root.setOnClickListener {
+            selectRole("pasien", patientBinding)
         }
-
-        binding.itemDokter.root.setOnClickListener {
-            selectRole("dokter", binding.itemDokter.root)
-        }
-
-        selectedRole?.let { role ->
-            when (role) {
-                "admin" -> binding.itemAdmin.root.isSelected = true
-                "pasien" -> binding.itemPasien.root.isSelected = true
-                "dokter" -> binding.itemDokter.root.isSelected = true
-            }
+        doctorBinding.root.setOnClickListener {
+            selectRole("dokter", doctorBinding)
         }
     }
 
-    private fun selectRole(role: String, selectedView: View) {
-        binding.itemAdmin.root.isSelected = false
-        binding.itemPasien.root.isSelected = false
-        binding.itemDokter.root.isSelected = false
 
-        updateCard(binding.itemAdmin.root, false)
-        updateCard(binding.itemPasien.root, false)
-        updateCard(binding.itemDokter.root, false)
+    private fun selectRole(role: String, selectedBinding: ItemCardHorizontalBinding) {
+        updateCard(adminBinding, false)
+        updateCard(patientBinding, false)
+        updateCard(doctorBinding, false)
 
-        selectedView.isSelected = true
-        updateCard(selectedView, true)
+        updateCard(selectedBinding, true)
         selectedRole = role
     }
 
-    private fun updateCard(cardView: View, isSelected: Boolean) {
+    private fun updateCard(binding: ItemCardHorizontalBinding, isSelected: Boolean) {
         val backgroundColor = if (isSelected) {
             ContextCompat.getColor(requireContext(), R.color.colorPrimary)
         } else {
             ContextCompat.getColor(requireContext(), R.color.white)
         }
-        cardView.setBackgroundColor(backgroundColor)
+        binding.root.setCardBackgroundColor(backgroundColor)
 
         val textTitleColor = if (isSelected) {
             ContextCompat.getColor(requireContext(), R.color.white)
         } else {
             ContextCompat.getColor(requireContext(), R.color.colorPrimary)
         }
-        (cardView as ItemCardHorizontalBinding).titlePasien.setTextColor(textTitleColor)
+        binding.titlePasien.setTextColor(textTitleColor)
+        binding.iconPasien.setColorFilter(textTitleColor)
     }
+
 
     fun isRoleSelected(): Boolean {
         return selectedRole != null

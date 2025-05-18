@@ -5,29 +5,27 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 
 class ProfileStepAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
-    private val fragments = mutableListOf<Fragment?>()
 
-    init {
-        fragments.addAll(List(itemCount) { null })
-    }
+    // Mapping fragment positions to their instances
+    private val fragmentMap = mutableMapOf<Int, Fragment>()
 
     override fun getItemCount(): Int = 4
 
     override fun createFragment(position: Int): Fragment {
-        return when (position) {
-            0 -> RoleFragment().also { fragments[0] = it }
-            1 -> AddressFragment().also { fragments[1] = it }
-            2 -> GenderFragment().also { fragments[2] = it }
-            else -> PhotoFragment().also { fragments[3] = it }
+        val fragment = when (position) {
+            0 -> RoleFragment()
+            1 -> AddressFragment()
+            2 -> GenderFragment()
+            else -> PhotoFragment()
         }
+
+        // Store the fragment instance in the map
+        fragmentMap[position] = fragment
+        return fragment
     }
 
+    // getFragment to retrieve a fragment by its position
     fun getFragment(position: Int): Fragment? {
-        if (position in 0 until fragments.size) {
-            return fragments[position] ?: createFragment(position).also {
-                fragments[position] = it
-            }
-        }
-        return null
+        return fragmentMap[position]
     }
 }

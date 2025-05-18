@@ -3,11 +3,14 @@ package com.kliniku.official.auth.profile_step
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.res.ResourcesCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.kliniku.official.R
 import com.kliniku.official.databinding.ActivityCompleteProfileBinding
 import com.kliniku.official.databinding.CustomToolbarBinding
+import com.shuhart.stepview.StepView
 
 class CompleteProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityCompleteProfileBinding
@@ -37,6 +40,18 @@ class CompleteProfileActivity : AppCompatActivity() {
         setupViewPager()
         setupButtons()
         updateButtonText(0)
+
+        onBackPressedDispatcher.addCallback(this) {
+            val currentItem = viewPager.currentItem
+
+            if (currentItem == 0) {
+                // First step, so show exit confirmation dialog
+                showExitConfirmationDialog()
+            } else {
+                // Other Step, back to previous step
+                viewPager.currentItem = currentItem - 1
+            }
+        }
     }
 
     private fun setupToolbar() {
@@ -46,21 +61,16 @@ class CompleteProfileActivity : AppCompatActivity() {
         }
         toolbarBinding.toolbarTitle.text = getString(R.string.complete_profile_title)
         toolbarBinding.btnBack.setOnClickListener {
-            // Show confirmation dialog if steps have been completed
-            if (completedSteps.isNotEmpty()) {
-                // show a confirmation dialog to prevent accidental back navigation
-
-            }
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
     private fun setupStepView() {
-        // Configure step view with labels
         binding.stepView.setStepsNumber(4)
-        binding.stepView.getState()
-            .selectedTextColor(getColor(R.color.colorSecondary))
-            .animationType(com.shuhart.stepview.StepView.ANIMATION_LINE)
+        binding.stepView.state
+            .animationType(StepView.ANIMATION_ALL)
+            .animationDuration(resources.getInteger(android.R.integer.config_shortAnimTime))
+            .typeface(ResourcesCompat.getFont(this, R.font.league_spartan_regular))
             .commit()
 
         // Set labels for steps
@@ -100,7 +110,6 @@ class CompleteProfileActivity : AppCompatActivity() {
 
             if (validateCurrentStep(currentPosition)) {
                 completedSteps.add(currentPosition)
-                binding.stepView.done(true)
 
                 if (currentPosition < adapter.itemCount - 1) {
                     // Move to next step
@@ -158,10 +167,25 @@ class CompleteProfileActivity : AppCompatActivity() {
 
         // Submit to database
 
+        // Set result and finish activity
+        setResult(RESULT_OK)
         finish()
     }
 
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showExitConfirmationDialog() {
+        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(getString(R.string.confirm))
+            .setMessage(getString(R.string.exit_confirm_complete_profile))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                finish()
+            }
+            .setNegativeButton(getString(R.string.cancel), null)
+            .create()
+
+        dialog.show()
     }
 }

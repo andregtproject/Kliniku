@@ -80,7 +80,6 @@
     <string name="complete_profile_title">Lengkapi Profil</string>
     <string name="selesai">Selesai</string>
 
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="role_admin_title">Saya Admin Klinik</string>
     <string name="role_patient_title">Saya Pasien Klinik</string>
     <string name="role_doctor_title">Saya Dokter Klinik</string>
@@ -95,11 +94,18 @@
     <string name="step_address">Alamat</string>
     <string name="step_gender">Gender</string>
     <string name="step_photo">Foto</string>
-    <string name="please_select_role">Tolong masukkan peran anda terlebih dahulu!</string>
+    <string name="please_select_role">Tolong pilih peran anda terlebih dahulu!</string>
     <string name="complete_all_steps">Semua langkah pendaftaran telah dilakukan!</string>
     <string name="registration_successful">Registrasi Berhasil!</string>
     <string name="exit_confirm_complete_profile">Apakah Anda ingin kembali? Data yang telah diisi akan terhapus.</string>
     <string name="yes">Iya</string>
     <string name="cancel">Batal</string>
+    <string name="male">Laki-laki</string>
+    <string name="female">Perempuan</string>
+    <string name="please_select_gender">Tolong pilih jenis kelamin anda terlebih dahulu!</string>
+    <string name="hint_address">Contoh : Kp. xxxxxx, Ds. xxxxx, RT 99 RW 99, Kec. xxxxxx Kab. xxxxxxx, Provinsi xxxxxxx, Indonesia, Kode Pos 99999</string>
+    <string name="address">Masukkan alamat lengkap Anda</string>
+    <string name="guide_address">Maksimal 100 karakter</string>
+    <string name="please_enter_address">Tolong masukkan alamat anda terlebih dahulu!</string>
 
 </resources>

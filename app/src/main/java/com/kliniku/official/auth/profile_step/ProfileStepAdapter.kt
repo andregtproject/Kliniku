@@ -14,8 +14,8 @@ class ProfileStepAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     override fun createFragment(position: Int): Fragment {
         val fragment = when (position) {
             0 -> RoleFragment()
-            1 -> AddressFragment()
-            2 -> GenderFragment()
+            1 ->  GenderFragment()
+            2 -> AddressFragment()
             else -> PhotoFragment()
         }
 

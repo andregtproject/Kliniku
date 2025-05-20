@@ -24,8 +24,8 @@ class CompleteProfileActivity : AppCompatActivity() {
     // Step titles
     private val stepTitles = listOf(
         R.string.step_choose_role,
-        R.string.step_enter_address,
         R.string.step_select_gender,
+        R.string.step_enter_address,
         R.string.step_upload_photo
     )
 
@@ -76,8 +76,8 @@ class CompleteProfileActivity : AppCompatActivity() {
         // Set labels for steps
         val stepLabels = listOf(
             getString(R.string.step_role),
-            getString(R.string.step_address),
             getString(R.string.step_gender),
+            getString(R.string.step_address),
             getString(R.string.step_photo)
         )
         binding.stepView.setSteps(stepLabels)
@@ -132,13 +132,16 @@ class CompleteProfileActivity : AppCompatActivity() {
                     }
                 } ?: false
             }
-            1 -> { // AddressFragment
-
-                true
+            1 -> { // GenderFragment
+                val currentFragment = adapter.getFragment(position) as? GenderFragment
+                currentFragment?.isGenderSelected()?.also { isValid ->
+                    if (!isValid) {
+                        showToast(getString(R.string.please_select_gender))
+                    }
+                } ?: false
             }
-            2 -> { // GenderFragment
-
-                true
+            2 -> { // AddressFragment
+               true
             }
             3 -> { // PhotoFragment
 

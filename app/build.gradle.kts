@@ -16,10 +16,6 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-
-        val mapsApiKey = project.findProperty("MAPS_API_KEY") as String? ?: ""
-        manifestPlaceholders["mapsApiKey"] = mapsApiKey
-        buildConfigField("String", "MAPS_API_KEY", "\"$mapsApiKey\"")
     }
 
     buildTypes {
@@ -75,7 +71,9 @@ dependencies {
     implementation (libs.stepview)
 
     // Gmaps
-    implementation(libs.play.services.maps)
-    implementation(libs.play.services.location)
+    implementation(libs.osmdroid)
+    implementation (libs.play.services.location)
+
+    implementation(libs.androidx.fragment.ktx)
 
 }

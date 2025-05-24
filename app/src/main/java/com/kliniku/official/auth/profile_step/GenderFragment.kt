@@ -1,11 +1,13 @@
 package com.kliniku.official.auth.profile_step
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.kliniku.official.R
 import com.kliniku.official.databinding.FragmentGenderBinding
 import com.kliniku.official.databinding.ItemCardVerticalBinding
@@ -18,6 +20,13 @@ class GenderFragment : Fragment() {
 
     private lateinit var maleBinding: ItemCardVerticalBinding
     private lateinit var femaleBinding: ItemCardVerticalBinding
+
+    private lateinit var viewModel: CompleteProfileViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProvider(requireActivity())[CompleteProfileViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,6 +45,7 @@ class GenderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupGenderCards()
         setupGenderSelection()
+        restoreSelection()
     }
 
     private fun setupGenderCards() {
@@ -48,11 +58,12 @@ class GenderFragment : Fragment() {
             iconGender.setImageResource(R.drawable.ic_female)
         }
     }
+
     private fun setupGenderSelection() {
         maleBinding.root.setOnClickListener {
             selectGender("laki-laki", maleBinding)
         }
-        femaleBinding.root.setOnClickListener{
+        femaleBinding.root.setOnClickListener {
             selectGender("perempuan", femaleBinding)
         }
     }
@@ -63,6 +74,7 @@ class GenderFragment : Fragment() {
 
         updateCard(selectedBinding, true)
         selectedGender = gender
+        viewModel.selectedGender = gender
     }
 
     private fun updateCard(binding: ItemCardVerticalBinding, isSelected: Boolean) {
@@ -83,6 +95,15 @@ class GenderFragment : Fragment() {
 
     fun isGenderSelected(): Boolean {
         return selectedGender != null
+    }
+
+    private fun restoreSelection() {
+        viewModel.selectedGender?.let { gender ->
+            when (gender) {
+                "laki-laki" -> selectGender(gender, maleBinding)
+                "perempuan" -> selectGender(gender, femaleBinding)
+            }
+        }
     }
 
     override fun onDestroyView() {

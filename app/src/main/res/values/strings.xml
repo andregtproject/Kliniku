@@ -102,10 +102,17 @@
     <string name="cancel">Batal</string>
     <string name="male">Laki-laki</string>
     <string name="female">Perempuan</string>
-    <string name="please_select_gender">Tolong pilih jenis kelamin anda terlebih dahulu!</string>
+    <string name="please_select_gender">Tolong pilih jenis kelamin Anda terlebih dahulu!</string>
     <string name="hint_address">Contoh : Kp. xxxxxx, Ds. xxxxx, RT 99 RW 99, Kec. xxxxxx Kab. xxxxxxx, Provinsi xxxxxxx, Indonesia, Kode Pos 99999</string>
     <string name="address">Masukkan alamat lengkap Anda</string>
     <string name="guide_address">Maksimal 100 karakter</string>
-    <string name="please_enter_address">Tolong masukkan alamat anda terlebih dahulu!</string>
+    <string name="please_enter_address">Tolong masukkan alamat Anda terlebih dahulu!</string>
+    <string name="address_not_found">Alamat tidak ditemukan</string>
+    <string name="please_upload_photo">Tolong unggah foto profil Anda terlebih dahulu!</string>
+    <string name="guide_map">Tap pada peta untuk menyesuaikan lokasi</string>
+    <string name="failed_address">Alamat tidak ditemukan</string>
+    <string name="map_window_info">Ini lokasi Anda</string>
+    <string name="gps_activation">Mohon aktifkan GPS</string>
+    <string name="failed_permission_address">Izin lokasi diperlukan</string>
 
 </resources>

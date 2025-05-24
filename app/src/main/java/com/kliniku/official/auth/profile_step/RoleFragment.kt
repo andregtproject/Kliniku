@@ -1,11 +1,13 @@
 package com.kliniku.official.auth.profile_step
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.kliniku.official.R
 import com.kliniku.official.databinding.FragmentRoleBinding
 import com.kliniku.official.databinding.ItemCardHorizontalBinding
@@ -19,6 +21,13 @@ class RoleFragment : Fragment() {
     private lateinit var adminBinding: ItemCardHorizontalBinding
     private lateinit var patientBinding: ItemCardHorizontalBinding
     private lateinit var doctorBinding: ItemCardHorizontalBinding
+
+    private lateinit var viewModel: CompleteProfileViewModel
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        viewModel = ViewModelProvider(requireActivity())[CompleteProfileViewModel::class.java]
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,6 +47,7 @@ class RoleFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRoleCards()
         setupRoleSelection()
+        restoreSelection()
     }
 
     private fun setupRoleCards() {
@@ -72,7 +82,6 @@ class RoleFragment : Fragment() {
         }
     }
 
-
     private fun selectRole(role: String, selectedBinding: ItemCardHorizontalBinding) {
         updateCard(adminBinding, false)
         updateCard(patientBinding, false)
@@ -80,6 +89,7 @@ class RoleFragment : Fragment() {
 
         updateCard(selectedBinding, true)
         selectedRole = role
+        viewModel.selectedRole = role  // Simpan ke ViewModel
     }
 
     private fun updateCard(binding: ItemCardHorizontalBinding, isSelected: Boolean) {
@@ -99,9 +109,18 @@ class RoleFragment : Fragment() {
         binding.iconPasien.setColorFilter(textTitleColor)
     }
 
-
     fun isRoleSelected(): Boolean {
         return selectedRole != null
+    }
+
+    private fun restoreSelection() {
+        viewModel.selectedRole?.let { role ->
+            when (role) {
+                "admin" -> selectRole(role, adminBinding)
+                "pasien" -> selectRole(role, patientBinding)
+                "dokter" -> selectRole(role, doctorBinding)
+            }
+        }
     }
 
     override fun onDestroyView() {

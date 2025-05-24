@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
 import com.kliniku.official.R
 import com.kliniku.official.databinding.ActivityCompleteProfileBinding
@@ -13,15 +14,15 @@ import com.kliniku.official.databinding.CustomToolbarBinding
 import com.shuhart.stepview.StepView
 
 class CompleteProfileActivity : AppCompatActivity() {
+
     private lateinit var binding: ActivityCompleteProfileBinding
     private lateinit var toolbarBinding: CustomToolbarBinding
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: ProfileStepAdapter
+    private lateinit var viewModel: CompleteProfileViewModel
 
-    // Track completed steps
     private val completedSteps = mutableSetOf<Int>()
 
-    // Step titles
     private val stepTitles = listOf(
         R.string.step_choose_role,
         R.string.step_select_gender,
@@ -35,6 +36,8 @@ class CompleteProfileActivity : AppCompatActivity() {
         toolbarBinding = CustomToolbarBinding.bind(binding.toolbar.root)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this)[CompleteProfileViewModel::class.java]
+
         setupToolbar()
         setupStepView()
         setupViewPager()
@@ -43,12 +46,9 @@ class CompleteProfileActivity : AppCompatActivity() {
 
         onBackPressedDispatcher.addCallback(this) {
             val currentItem = viewPager.currentItem
-
             if (currentItem == 0) {
-                // First step, so show exit confirmation dialog
                 showExitConfirmationDialog()
             } else {
-                // Other Step, back to previous step
                 viewPager.currentItem = currentItem - 1
             }
         }
@@ -56,9 +56,7 @@ class CompleteProfileActivity : AppCompatActivity() {
 
     private fun setupToolbar() {
         setSupportActionBar(toolbarBinding.toolbar)
-        supportActionBar?.apply {
-            setDisplayShowTitleEnabled(false)
-        }
+        supportActionBar?.setDisplayShowTitleEnabled(false)
         toolbarBinding.toolbarTitle.text = getString(R.string.complete_profile_title)
         toolbarBinding.btnBack.setOnClickListener {
             onBackPressedDispatcher.onBackPressed()
@@ -73,7 +71,6 @@ class CompleteProfileActivity : AppCompatActivity() {
             .typeface(ResourcesCompat.getFont(this, R.font.league_spartan_regular))
             .commit()
 
-        // Set labels for steps
         val stepLabels = listOf(
             getString(R.string.step_role),
             getString(R.string.step_gender),
@@ -89,13 +86,63 @@ class CompleteProfileActivity : AppCompatActivity() {
         viewPager.adapter = adapter
         viewPager.isUserInputEnabled = false
 
+        // Set offscreen page limit untuk mempertahankan fragment
+        viewPager.offscreenPageLimit = 1
+
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.stepView.go(position, true)
                 updateStepGuideText(position)
                 updateButtonText(position)
+
+                // Notify fragment tentang visibility change
+                notifyFragmentVisibilityChanged(position)
+            }
+
+            override fun onPageScrollStateChanged(state: Int) {
+                super.onPageScrollStateChanged(state)
+                // Ketika scroll selesai, pastikan fragment address refresh
+                if (state == ViewPager2.SCROLL_STATE_IDLE) {
+                    val currentPosition = viewPager.currentItem
+                    if (currentPosition == 2) { // Address fragment position
+                        binding.root.postDelayed({
+                            try {
+                                val fragment = adapter.getFragment(currentPosition)
+                                if (fragment is AddressFragment) {
+                                    fragment.refreshMap()
+                                }
+                            } catch (e: Exception) {
+                                // Ignore error
+                            }
+                        }, 100)
+                    }
+                }
             }
         })
+    }
+
+    private fun notifyFragmentVisibilityChanged(position: Int) {
+        // Delay untuk memastikan fragment dan view sudah ready
+        binding.root.postDelayed({
+            try {
+                val fragment = adapter.getFragment(position)
+                if (fragment is AddressFragment) {
+                    // Trigger refresh untuk AddressFragment dengan multiple delays
+                    fragment.onHiddenChanged(false)
+
+                    // Refresh dengan beberapa attempt
+                    binding.root.postDelayed({
+                        fragment.refreshMap()
+                    }, 150)
+
+                    binding.root.postDelayed({
+                        fragment.refreshMap()
+                    }, 500)
+                }
+            } catch (e: Exception) {
+                // Ignore error
+            }
+        }, 100)
     }
 
     private fun updateStepGuideText(position: Int) {
@@ -112,10 +159,8 @@ class CompleteProfileActivity : AppCompatActivity() {
                 completedSteps.add(currentPosition)
 
                 if (currentPosition < adapter.itemCount - 1) {
-                    // Move to next step
                     viewPager.currentItem = currentPosition + 1
                 } else {
-                    // All steps completed
                     completeRegistration()
                 }
             }
@@ -124,28 +169,29 @@ class CompleteProfileActivity : AppCompatActivity() {
 
     private fun validateCurrentStep(position: Int): Boolean {
         return when (position) {
-            0 -> { // RoleFragment
+            0 -> {
                 val currentFragment = adapter.getFragment(position) as? RoleFragment
-                currentFragment?.isRoleSelected()?.also { isValid ->
-                    if (!isValid) {
-                        showToast(getString(R.string.please_select_role))
-                    }
+                currentFragment?.isRoleSelected()?.also {
+                    if (!it) showToast(getString(R.string.please_select_role))
                 } ?: false
             }
-            1 -> { // GenderFragment
+            1 -> {
                 val currentFragment = adapter.getFragment(position) as? GenderFragment
-                currentFragment?.isGenderSelected()?.also { isValid ->
-                    if (!isValid) {
-                        showToast(getString(R.string.please_select_gender))
-                    }
+                currentFragment?.isGenderSelected()?.also {
+                    if (!it) showToast(getString(R.string.please_select_gender))
                 } ?: false
             }
-            2 -> { // AddressFragment
-               true
+            2 -> {
+                val currentFragment = adapter.getFragment(position) as? AddressFragment
+                currentFragment?.isAddressSelected()?.also {
+                    if (!it) showToast(getString(R.string.please_enter_address))
+                } ?: false
             }
-            3 -> { // PhotoFragment
-
-                true
+            3 -> {
+                if (viewModel.selectedPhotoUri == null) {
+                    showToast(getString(R.string.please_upload_photo))
+                    false
+                } else true
             }
             else -> false
         }
@@ -160,17 +206,22 @@ class CompleteProfileActivity : AppCompatActivity() {
     }
 
     private fun completeRegistration() {
-        // Check if all steps are completed
         if (completedSteps.size < adapter.itemCount) {
             showToast(getString(R.string.complete_all_steps))
             return
         }
 
+        // planning for integrate to database
+        val photoUri = viewModel.selectedPhotoUri
+        val addressText = viewModel.selectedAddress
+        val locationPoint = viewModel.selectedGeoPoint
+        val role = viewModel.selectedRole
+        val gender = viewModel.selectedGender
+
+        // TODO: Submit ke database atau Firebase
+
         showToast(getString(R.string.registration_successful))
 
-        // Submit to database
-
-        // Set result and finish activity
         setResult(RESULT_OK)
         finish()
     }
@@ -183,12 +234,9 @@ class CompleteProfileActivity : AppCompatActivity() {
         val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle(getString(R.string.confirm))
             .setMessage(getString(R.string.exit_confirm_complete_profile))
-            .setPositiveButton(getString(R.string.yes)) { _, _ ->
-                finish()
-            }
+            .setPositiveButton(getString(R.string.yes)) { _, _ -> finish() }
             .setNegativeButton(getString(R.string.cancel), null)
             .create()
-
         dialog.show()
     }
 }

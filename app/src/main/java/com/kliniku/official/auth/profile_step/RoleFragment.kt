@@ -2,6 +2,7 @@ package com.kliniku.official.auth.profile_step
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class RoleFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var selectedRole: String? = null
+    private var isRegisterFlow: Boolean = false
 
     private lateinit var adminBinding: ItemCardHorizontalBinding
     private lateinit var patientBinding: ItemCardHorizontalBinding
@@ -29,13 +31,19 @@ class RoleFragment : Fragment() {
         viewModel = ViewModelProvider(requireActivity())[CompleteProfileViewModel::class.java]
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Get the isRegister flag from arguments
+        isRegisterFlow = requireActivity().intent?.getBooleanExtra("isRegister", false) ?: false
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRoleBinding.inflate(inflater, container, false)
-
         adminBinding = ItemCardHorizontalBinding.bind(binding.itemAdmin.root)
         patientBinding = ItemCardHorizontalBinding.bind(binding.itemPasien.root)
         doctorBinding = ItemCardHorizontalBinding.bind(binding.itemDokter.root)
@@ -45,9 +53,17 @@ class RoleFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setupRoleCards()
         setupRoleSelection()
         restoreSelection()
+
+        // Hide doctor role if this is a registration flow
+        if (isRegisterFlow) {
+            binding.itemDokter.root.visibility = View.GONE
+        } else {
+            binding.itemDokter.root.visibility = View.VISIBLE
+        }
     }
 
     private fun setupRoleCards() {

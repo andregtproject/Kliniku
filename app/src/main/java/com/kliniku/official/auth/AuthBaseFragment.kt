@@ -35,7 +35,7 @@ class AuthBaseFragment : Fragment() {
     private var authMode: AuthMode = AuthMode.REGISTER_EMAIL
     private var isPasswordVisible = false
     private var isConfirmPasswordVisible = false
-
+    private var viewsInitialized = false
     private val calendar = Calendar.getInstance()
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private var selectedDate: Date? = null
@@ -63,68 +63,51 @@ class AuthBaseFragment : Fragment() {
     }
 
     private fun setupViews() {
+        if (viewsInitialized) return
+        viewsInitialized = true
+
         with(binding) {
             spaceBeforeButton.visibility = View.GONE
             spaceForgotPassword.visibility = View.GONE
 
-            when (authMode) {
-                AuthMode.REGISTER_EMAIL -> {
-                    setupRegistrationViews(show = true)
-                    setupEmailViews(show = true)
-                    setupGoogleSection(
-                        show = true,
-                        text = getString(R.string.register_with_google)
-                    )
-                    setupPromptSection(
-                        promptText = getString(R.string.already_have_account),
-                        actionText = getString(R.string.login)
-                    )
-                    btnAction.text = getString(R.string.register)
-                    spaceBeforeButton.visibility = View.VISIBLE
-                    btnAction.setConstraintTopToBottomOf(spaceBeforeButton)
-                }
+            val isRegisterMode = authMode == AuthMode.REGISTER_EMAIL || authMode == AuthMode.REGISTER_PHONE
+            val isEmailMode = authMode == AuthMode.REGISTER_EMAIL || authMode == AuthMode.LOGIN_EMAIL
 
-                AuthMode.REGISTER_PHONE -> {
-                    setupRegistrationViews(show = true)
-                    setupPhoneViews(show = true)
-                    setupGoogleSection(show = false)
-                    setupPromptSection(
-                        promptText = getString(R.string.already_have_account),
-                        actionText = getString(R.string.login)
-                    )
-                    btnAction.text = getString(R.string.register)
-                    spaceBeforeButton.visibility = View.VISIBLE
-                    btnAction.setConstraintTopToBottomOf(spaceBeforeButton)
-                }
+            // Common setup for all modes
+            setupRegistrationViews(show = isRegisterMode)
 
-                AuthMode.LOGIN_EMAIL -> {
-                    setupRegistrationViews(show = false)
-                    setupEmailViews(show = true)
-                    setupGoogleSection(
-                        show = true,
-                        text = getString(R.string.login_with_google)
-                    )
-                    setupPromptSection(
-                        promptText = getString(R.string.dont_have_account),
-                        actionText = getString(R.string.register)
-                    )
-                    btnAction.text = getString(R.string.login)
-                    spaceForgotPassword.visibility = View.VISIBLE
-                    btnAction.setConstraintTopToBottomOf(spaceForgotPassword)
-                }
+            if (isEmailMode) {
+                setupEmailViews(show = true)
+            } else {
+                setupPhoneViews(show = true)
+            }
 
-                AuthMode.LOGIN_PHONE -> {
-                    setupRegistrationViews(show = false)
-                    setupPhoneViews(show = true)
-                    setupGoogleSection(show = false)
-                    setupPromptSection(
-                        promptText = getString(R.string.dont_have_account),
-                        actionText = getString(R.string.register)
-                    )
-                    btnAction.text = getString(R.string.login)
-                    spaceForgotPassword.visibility = View.VISIBLE
-                    btnAction.setConstraintTopToBottomOf(spaceForgotPassword)
-                }
+            // Google section only for email modes
+            if (isEmailMode) {
+                setupGoogleSection(
+                    show = true,
+                    text = getString(if (isRegisterMode) R.string.register_with_google else R.string.login_with_google)
+                )
+            } else {
+                setupGoogleSection(show = false)
+            }
+
+            // Prompt section
+            setupPromptSection(
+                promptText = getString(if (isRegisterMode) R.string.already_have_account else R.string.dont_have_account),
+                actionText = getString(if (isRegisterMode) R.string.login else R.string.register)
+            )
+
+            // Button text
+            btnAction.text = getString(if (isRegisterMode) R.string.register else R.string.login)
+
+            // Space and button positioning
+            if (isRegisterMode) {
+                spaceBeforeButton.visibility = View.VISIBLE
+                btnAction.setConstraintTopToBottomOf(spaceBeforeButton)
+            } else {
+                spaceForgotPassword.visibility = View.VISIBLE
+                btnAction.setConstraintTopToBottomOf(spaceForgotPassword)
             }
         }
     }
@@ -488,6 +471,7 @@ class AuthBaseFragment : Fragment() {
                 putExtra("fullName", fullName)
                 putExtra("email", email)
                 putExtra("birthdate", birthdate)
+                putExtra("isRegister", true)
             }
             completeProfileLauncher.launch(intent)
         }, 1500)
@@ -516,6 +500,7 @@ class AuthBaseFragment : Fragment() {
                 putExtra("fullName", fullName)
                 putExtra("phoneNumber", phoneNumber)
                 putExtra("birthdate", birthdate)
+                putExtra("isRegister", true)
             }
             completeProfileLauncher.launch(intent)
         }, 1500)

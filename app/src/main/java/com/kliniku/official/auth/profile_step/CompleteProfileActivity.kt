@@ -2,6 +2,7 @@ package com.kliniku.official.auth.profile_step
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -34,8 +35,8 @@ class CompleteProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityCompleteProfileBinding.inflate(layoutInflater)
         toolbarBinding = CustomToolbarBinding.bind(binding.toolbar.root)
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
         setContentView(binding.root)
-
         viewModel = ViewModelProvider(this)[CompleteProfileViewModel::class.java]
 
         setupToolbar()
@@ -85,6 +86,8 @@ class CompleteProfileActivity : AppCompatActivity() {
         viewPager = binding.viewPager
         viewPager.adapter = adapter
         viewPager.isUserInputEnabled = false
+
+
 
         // Set offscreen page limit untuk mempertahankan fragment
         viewPager.offscreenPageLimit = 1

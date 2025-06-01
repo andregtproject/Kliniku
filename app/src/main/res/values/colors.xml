@@ -7,4 +7,5 @@
     <color name="colorAccent">#F3AA43</color>
     <color name="colorSurface">#F9F8D4</color>
     <color name="colorOverlay">#E62E416B</color>
+    <color name="grey">#C4C4C4</color>
 </resources>

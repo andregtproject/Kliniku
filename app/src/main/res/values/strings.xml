@@ -114,5 +114,10 @@
     <string name="map_window_info">Ini lokasi Anda</string>
     <string name="gps_activation">Mohon aktifkan GPS</string>
     <string name="failed_permission_address">Izin lokasi diperlukan</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cari_klinik_atau_dokter_sesuai_kebutuhan_anda">Cari klinik atau dokter sesuai kebutuhan Anda</string>
+    <string name="good_morning">Good morning,</string>
+    <string name="lord_ganjar_ganzz">Lord Ganjar Ganzz</string>
 
 </resources>

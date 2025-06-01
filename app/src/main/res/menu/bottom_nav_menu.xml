@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_beranda"
+        android:icon="@drawable/ic_beranda"
+        android:title="Beranda" />
+
+    <item
+        android:id="@+id/nav_pemesanan"
+        android:icon="@drawable/ic_pemesanan"
+        android:title="Pemesanan" />
+
+    <item
+        android:id="@+id/nav_pesan"
+        android:icon="@drawable/ic_pesan"
+        android:title="Pesan" />
+
+    <item
+        android:id="@+id/nav_riwayat"
+        android:icon="@drawable/ic_riwayat"
+        android:title="Riwayat" />
+
+    <item
+        android:id="@+id/nav_profil"
+        android:icon="@drawable/ic_profil"
+        android:title="Profil" />
+</menu>

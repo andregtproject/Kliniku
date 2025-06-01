@@ -40,6 +40,8 @@ class AuthBaseFragment : Fragment() {
     private val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     private var selectedDate: Date? = null
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -52,6 +54,9 @@ class AuthBaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
+
+
         arguments?.let {
             authMode = AuthMode.valueOf(it.getString(ARG_AUTH_MODE, AuthMode.REGISTER_EMAIL.name))
         }
@@ -60,6 +65,18 @@ class AuthBaseFragment : Fragment() {
         setupPasswordToggles()
         setupValidators()
         setupListeners()
+        savedInstanceState?.getLong("selectedDate", -1L)?.takeIf { it != -1L }?.let {
+            selectedDate = Date(it)
+            calendar.time = selectedDate!!
+            updateBirthdateDisplay()
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        selectedDate?.let {
+            outState.putLong("selectedDate", it.time)
+        }
     }
 
     private fun setupViews() {
@@ -435,9 +452,15 @@ class AuthBaseFragment : Fragment() {
         datePicker.show()
     }
 
+
     private fun updateBirthdateDisplay() {
-        binding.tvBirthdateValue.text = dateFormat.format(calendar.time)
+        if (selectedDate != null) {
+            binding.tvBirthdateValue.text = dateFormat.format(selectedDate)
+        } else {
+            binding.tvBirthdateValue.text = "" // atau bisa "Pilih tanggal" sesuai preferensi
+        }
     }
+
 
     private val completeProfileLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()

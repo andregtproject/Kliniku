@@ -29,14 +29,9 @@
             android:name=".BottomNavbarActivity"
             android:exported="false" />
         <activity
-            android:name=".beranda.HomeActivity"
-            android:exported="false" />
-        <activity
             android:name=".beranda.SearchActivity"
             android:exported="false" />
-        <activity
-            android:name=".beranda.HomeFragment"
-            android:exported="false" />
+
         <activity
             android:name=".auth.profile_step.CompleteProfileActivity"
             android:exported="false"
@@ -47,7 +42,9 @@
         <activity
             android:name=".auth.AuthActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize"
+          />
+
         <activity
             android:name=".onboarding.OnboardingActivity"
             android:exported="false" />

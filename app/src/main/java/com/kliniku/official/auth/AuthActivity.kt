@@ -35,9 +35,14 @@ class AuthActivity : AppCompatActivity() {
             isLoginMode = it.getBoolean(KEY_LOGIN_MODE, false)
         }
 
+
+
         setupUI()
+
         setupViewPager()
         setupTabLayout()
+
+
     }
 
     private fun setupUI() {

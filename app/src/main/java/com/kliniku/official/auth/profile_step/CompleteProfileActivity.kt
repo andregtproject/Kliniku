@@ -1,5 +1,6 @@
 package com.kliniku.official.auth.profile_step
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -9,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
+import com.kliniku.official.BottomNavbarActivity
 import com.kliniku.official.R
 import com.kliniku.official.databinding.ActivityCompleteProfileBinding
 import com.kliniku.official.databinding.CustomToolbarBinding
@@ -224,6 +226,10 @@ class CompleteProfileActivity : AppCompatActivity() {
         // TODO: Submit ke database atau Firebase
 
         showToast(getString(R.string.registration_successful))
+
+        // Redirect ke BottomNavbarActivity, perlu penyesuaian lagi kalo db sudah terintegrasi
+        val intent = Intent(this, BottomNavbarActivity::class.java)
+        startActivity(intent)
 
         setResult(RESULT_OK)
         finish()

@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.kliniku.official.auth.AuthActivity
 import com.kliniku.official.databinding.ActivitySplashBinding
 import com.kliniku.official.onboarding.OnboardingActivity
 import pl.droidsonroids.gif.GifDrawable
@@ -28,7 +29,7 @@ class SplashActivity : AppCompatActivity() {
             val onboardingCompleted = sharedPrefs.getBoolean("onboarding_completed", false)
 
             val intent = if (onboardingCompleted) {
-                Intent(this, BottomNavbarActivity::class.java)
+                Intent(this, AuthActivity::class.java)
             } else {
                 Intent(this, OnboardingActivity::class.java)
             }

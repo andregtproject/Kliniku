@@ -95,7 +95,7 @@
     <string name="step_gender">Gender</string>
     <string name="step_photo">Foto</string>
     <string name="please_select_role">Tolong pilih peran anda terlebih dahulu!</string>
-    <string name="complete_all_steps">Semua langkah pendaftaran telah dilakukan!</string>
+    <string name="complete_all_steps">Semua langkah pendaftaran belum dilengkapi!</string>
     <string name="registration_successful">Registrasi Berhasil!</string>
     <string name="exit_confirm_complete_profile">Apakah Anda ingin kembali? Data yang telah diisi akan terhapus.</string>
     <string name="yes">Iya</string>

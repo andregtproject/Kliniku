@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.LinearLayout
 import com.kliniku.official.R
+import com.kliniku.official.pasien.home.SearchActivity
 
 
 class BerandaFragment : Fragment() {

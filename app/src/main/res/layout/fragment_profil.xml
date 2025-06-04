@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:fillViewport="true"
-    tools:context=".profil.ProfilFragment">
+    tools:context=".pasien.profile.ProfilFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

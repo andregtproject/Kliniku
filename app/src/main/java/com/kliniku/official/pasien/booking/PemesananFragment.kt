@@ -1,4 +1,4 @@
-package com.kliniku.official.pemesanan
+package com.kliniku.official.pasien.booking
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

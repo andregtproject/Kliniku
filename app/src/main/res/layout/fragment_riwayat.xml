@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:fillViewport="true"
-    tools:context=".riwayat.RiwayatFragment">
+    tools:context=".pasien.history.RiwayatFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

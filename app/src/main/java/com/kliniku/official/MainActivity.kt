@@ -5,19 +5,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.kliniku.official.pasien.home.HomeFragment
 import com.kliniku.official.databinding.ActivityMainBinding
-import com.kliniku.official.pasien.booking.PemesananFragment
-import com.kliniku.official.pasien.chat.PesanFragment
-import com.kliniku.official.pasien.profile.ProfilFragment
-import com.kliniku.official.pasien.history.RiwayatFragment
+import com.kliniku.official.pasien.booking.BookingFragment
+import com.kliniku.official.pasien.chat.ChatFragment
+import com.kliniku.official.pasien.profile.ProfileFragment
+import com.kliniku.official.pasien.history.HistoryFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val fragments = mapOf(
         R.id.nav_home to HomeFragment(),
-        R.id.nav_booking to PemesananFragment(),
-        R.id.nav_chat to PesanFragment(),
-        R.id.nav_history to RiwayatFragment(),
-        R.id.nav_profile to ProfilFragment()
+        R.id.nav_booking to BookingFragment(),
+        R.id.nav_chat to ChatFragment(),
+        R.id.nav_history to HistoryFragment(),
+        R.id.nav_profile to ProfileFragment()
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

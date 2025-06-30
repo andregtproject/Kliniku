@@ -1,10 +1,16 @@
 package com.kliniku.official.auth
 
+import android.content.Context
 import android.content.res.Configuration
+import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.NestedScrollView
 import com.google.android.material.tabs.TabLayoutMediator
 import com.kliniku.official.R
 import com.kliniku.official.auth.util.LoadingUtils
@@ -21,7 +27,32 @@ class AuthActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
+        // Perbaikan untuk handle keyboard dengan lebih baik
+        window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        )
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+            // tunggu sampai window attach
+            window.decorView.post {
+                window.insetsController?.let { controller ->
+                    controller.hide(WindowInsets.Type.navigationBars())
+                    controller.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                }
+            }
+        } else {
+            @Suppress("DEPRECATION")
+            window.decorView.systemUiVisibility = (
+                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                            View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                            View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                    )
+        }
+
+
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -65,8 +96,29 @@ class AuthActivity : AppCompatActivity() {
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        // Force update tab layout when orientation changes
-        binding.tabLayout.requestLayout()
+
+        // Hide keyboard saat rotasi
+        val inputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        currentFocus?.let { view ->
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            view.clearFocus()
+        }
+
+        // Reset soft input mode setelah rotasi
+        window.setSoftInputMode(
+            WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or
+                    WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN
+        )
+
+        // Delay untuk memastikan layout sudah selesai
+        binding.root.postDelayed({
+            binding.tabLayout.requestLayout()
+            binding.viewPager.requestLayout()
+            adapter.notifyDataSetChanged()
+
+            // Scroll ke atas setelah rotasi
+            (binding.viewPager.getChildAt(0) as? NestedScrollView)?.scrollTo(0, 0)
+        }, 150)
     }
 
     private fun setupViewPager() {

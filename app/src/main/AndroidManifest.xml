@@ -42,9 +42,9 @@
             android:exported="false" />
         <activity
             android:name=".auth.AuthActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize" />
-
+            android:windowSoftInputMode="adjustPan|stateHidden"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:exported="false"  />
         <activity
             android:name=".onboarding.OnboardingActivity"
             android:exported="false" />

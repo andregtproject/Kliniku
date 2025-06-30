@@ -8,4 +8,6 @@
     <color name="colorSurface">#F9F8D4</color>
     <color name="colorOverlay">#E62E416B</color>
     <color name="grey">#C4C4C4</color>
+    <color name="darkGrey">#8C8C8C</color>
+    <color name="grey2">#B6B6B6</color>
 </resources>

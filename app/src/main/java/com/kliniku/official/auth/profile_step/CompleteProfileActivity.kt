@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.viewpager2.widget.ViewPager2
-import com.kliniku.official.BottomNavbarActivity
 import com.kliniku.official.MainActivity
 import com.kliniku.official.R
 import com.kliniku.official.databinding.ActivityCompleteProfileBinding

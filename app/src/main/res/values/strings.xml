@@ -119,5 +119,9 @@
     <string name="search_hint">Cari klinik atau dokter sesuai kebutuhan Anda</string>
     <string name="good_morning">Good morning,</string>
     <string name="lord_ganjar_ganzz">Lord Ganjar Ganzz</string>
+    <string name="anda_belum_melakukan_pemesanan_apapun_hari_ini">Anda belum melakukan pemesanan apapun hari ini</string>
+    <string name="pesan_konsultasi_dengan_klinik_dan_dokter_kepercayaan_anda_dalam_hitungan_detik">Pesan konsultasi dengan klinik dan dokter kepercayaan anda dalam hitungan detik.</string>
+    <string name="cari_klinik_dan_dokter">Cari Klinik dan Dokter</string>
+    <string name="lebih_dari_50_klinik_dan_100_dokter_tersedia">Lebih dari 50 klinik dan 100 dokter tersedia</string>
 
 </resources>

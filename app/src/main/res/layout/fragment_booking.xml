@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:fillViewport="true"
-    tools:context=".pasien.chat.PesanFragment">
+    tools:context=".pasien.booking.BookingFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

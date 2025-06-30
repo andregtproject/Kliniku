@@ -2,7 +2,9 @@ package com.kliniku.official.auth
 
 import android.app.Activity
 import android.app.DatePickerDialog
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,12 +13,14 @@ import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import com.kliniku.official.R
 import com.kliniku.official.auth.profile_step.CompleteProfileActivity
@@ -54,9 +58,6 @@ class AuthBaseFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
         arguments?.let {
             authMode = AuthMode.valueOf(it.getString(ARG_AUTH_MODE, AuthMode.REGISTER_EMAIL.name))
         }
@@ -65,6 +66,7 @@ class AuthBaseFragment : Fragment() {
         setupPasswordToggles()
         setupValidators()
         setupListeners()
+        setupFocusHandling()
         savedInstanceState?.getLong("selectedDate", -1L)?.takeIf { it != -1L }?.let {
             selectedDate = Date(it)
             calendar.time = selectedDate!!
@@ -76,6 +78,38 @@ class AuthBaseFragment : Fragment() {
         super.onSaveInstanceState(outState)
         selectedDate?.let {
             outState.putLong("selectedDate", it.time)
+        }
+    }
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        // Hide keyboard when orientation changes
+        val inputMethodManager = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        activity?.currentFocus?.let { view ->
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            view.clearFocus()
+        }
+    }
+
+    // Tambahkan juga method untuk handle focus
+    private fun setupFocusHandling() {
+        val editTexts = listOf(
+            binding.etFullname,
+            binding.etEmail,
+            binding.etPhoneNumber,
+            binding.etPassword,
+            binding.etConfirmPassword
+        )
+
+        editTexts.forEach { editText ->
+            editText.setOnFocusChangeListener { _, hasFocus ->
+                if (hasFocus) {
+                    binding.root.postDelayed({
+                        val scrollView = binding.root as? NestedScrollView
+                        scrollView?.smoothScrollTo(0, editText.bottom)
+                    }, 100)
+                }
+            }
         }
     }
 
